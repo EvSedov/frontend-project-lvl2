@@ -1,0 +1,51 @@
+{
+  "name": "cligendiff",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "description": "Compares two configuration files and shows a difference",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvSedov/frontend-project-lvl2.git"
+  },
+  "keywords": [
+    "configuration files",
+    "compares",
+    "gendiff"
+  ],
+  "author": "Evgeniy Sedov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvSedov/frontend-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/EvSedov/frontend-project-lvl2#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-flowtype": "^3.9.1",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jest": "^22.6.4",
+    "eslint-plugin-lodash-fp": "^2.2.0-a1"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-pipeline-operator": "^7.3.2",
+    "commander": "^2.20.0"
+  }
+}
