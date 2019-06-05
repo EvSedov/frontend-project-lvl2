@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-pipeline-operator": "^7.3.2",
-    "commander": "^2.20.0"
+    "commander": "^2.20.0",
+    "lodash": "^4.17.11"
   }
 }
