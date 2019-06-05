@@ -17,20 +17,21 @@ const gendiff = (filePathBefore, filePathAfter) => {
   keys.forEach((key) => {
     if (_.has(fileContentBefore, key) && _.has(fileContentAfter, key)) {
       if (fileContentBefore[key] === fileContentAfter[key]) {
-        result = `${result}\n   ${key}: ${fileContentBefore[key]}`;
+        result = `${result}   ${key}: ${fileContentBefore[key]}\n`;
       } else {
-        result = `${result}\n - ${key}: ${fileContentBefore[key]}\n + ${key}: ${fileContentAfter[key]}`;
+        result = `${result} - ${key}: ${fileContentBefore[key]}\n + ${key}: ${fileContentAfter[key]}\n`;
       }
     }
     if (!_.has(fileContentBefore, key) && _.has(fileContentAfter, key)) {
-      result = `${result}\n + ${key}: ${fileContentAfter[key]}`;
+      result = `${result} + ${key}: ${fileContentAfter[key]}\n`;
     }
     if (_.has(fileContentBefore, key) && !_.has(fileContentAfter, key)) {
-      result = `${result}\n - ${key}: ${fileContentBefore[key]}`;
+      result = `${result} - ${key}: ${fileContentBefore[key]}\n`;
     }
   });
   fs.closeSync(fdBefore);
   fs.closeSync(fdAfter);
-  return `{\n${result}\n}`;
+  console.log(`{\n${result}}`);
+  return `{\n${result}}`;
 };
 export default gendiff;
