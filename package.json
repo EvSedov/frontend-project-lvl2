@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "dist/gendiff/index.js",
   "bin": {
-    "gendiff": "dist/bin/bin-gendiff.js"
+    "gendiff": "dist/bin/gendiff.js"
   },
   "files": [
     "dist"
