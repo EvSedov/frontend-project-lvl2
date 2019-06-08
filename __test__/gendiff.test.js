@@ -1,5 +1,5 @@
 import fs from 'fs';
-import gendiff from '../dist/gendiff';
+import gendiff from '../src/gendiff';
 
 test('compares two configuration files and shows a difference', () => {
   const pathToBefore = './__test__/__fixtures__/before.json';
