@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import parsers from '../lib/parsers';
 
 const getPathAbsolute = pathToFile => ((path.isAbsolute(pathToFile))
   ? pathToFile : path.normalize(`${process.cwd()}/${pathToFile}`));
@@ -10,8 +11,10 @@ const gendiff = (filePathBefore, filePathAfter) => {
   const filePathAfterAbsolute = getPathAbsolute(filePathAfter);
   const fdBefore = fs.openSync(filePathBeforeAbsolute, 'r');
   const fdAfter = fs.openSync(filePathAfterAbsolute, 'r');
-  const fileContentBefore = JSON.parse(fs.readFileSync(filePathBeforeAbsolute));
-  const fileContentAfter = JSON.parse(fs.readFileSync(filePathAfterAbsolute));
+  const parsersBefore = parsers(filePathBefore);
+  const parsersAfter = parsers(filePathAfter);
+  const fileContentBefore = parsersBefore(fs.readFileSync(filePathBeforeAbsolute));
+  const fileContentAfter = parsersAfter(fs.readFileSync(filePathAfterAbsolute));
   const keys = _.uniq([..._.keys(fileContentBefore), ..._.keys(fileContentAfter)]);
   let result = '';
   keys.forEach((key) => {

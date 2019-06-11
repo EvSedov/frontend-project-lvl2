@@ -12,5 +12,5 @@ publish:
 	npm publish --dry-run
 
 test:
-	npm test --watch
+	npm test
 	
