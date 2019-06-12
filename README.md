@@ -11,3 +11,6 @@ asciinema https://asciinema.org/a/vOeXzWUxr30ntXS6Ktu0yKov8
 
 Step 3.
 asciinema https://asciinema.org/a/di7HqCaROplT8AfUKd1BiVOgg
+
+Step 4.
+asciinema 

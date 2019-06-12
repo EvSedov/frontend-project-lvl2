@@ -34,6 +34,7 @@ const gendiff = (filePathBefore, filePathAfter) => {
   });
   fs.closeSync(fdBefore);
   fs.closeSync(fdAfter);
+  console.log(`{\n${result}}`);
   return `{\n${result}}`;
 };
 export default gendiff;
