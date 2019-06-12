@@ -13,4 +13,3 @@ publish:
 
 test:
 	npm test
-	

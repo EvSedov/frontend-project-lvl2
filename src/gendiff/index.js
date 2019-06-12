@@ -13,8 +13,8 @@ const gendiff = (filePathBefore, filePathAfter) => {
   const fdAfter = fs.openSync(filePathAfterAbsolute, 'r');
   const parsersBefore = parsers(filePathBefore);
   const parsersAfter = parsers(filePathAfter);
-  const fileContentBefore = parsersBefore(fs.readFileSync(filePathBeforeAbsolute));
-  const fileContentAfter = parsersAfter(fs.readFileSync(filePathAfterAbsolute));
+  const fileContentBefore = parsersBefore(fs.readFileSync(filePathBeforeAbsolute, 'utf-8'));
+  const fileContentAfter = parsersAfter(fs.readFileSync(filePathAfterAbsolute, 'utf-8'));
   const keys = _.uniq([..._.keys(fileContentBefore), ..._.keys(fileContentAfter)]);
   let result = '';
   keys.forEach((key) => {
@@ -34,6 +34,8 @@ const gendiff = (filePathBefore, filePathAfter) => {
   });
   fs.closeSync(fdBefore);
   fs.closeSync(fdAfter);
+  console.log(fileContentBefore);
+  console.log(fileContentAfter);
   console.log(`{\n${result}}`);
   return `{\n${result}}`;
 };
