@@ -3,7 +3,7 @@ import path from 'path';
 import _ from 'lodash';
 import parsers from '../lib/parsers';
 
-const getPathAbsolute = pathToFile => ((path.isAbsolute(pathToFile))
+const getPathAbsolute = pathToFile => (path.isAbsolute(pathToFile)
   ? pathToFile : path.normalize(`${process.cwd()}/${pathToFile}`));
 
 const gendiff = (filePathBefore, filePathAfter) => {
