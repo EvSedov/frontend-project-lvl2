@@ -58,20 +58,22 @@ const buildDifAST = (fileContentBefore, fileContentAfter) => {
         acc.push({
           type: 'unchanged',
           key,
-          value: fileContentBefore[key],
+          value: [fileContentBefore[key], null],
+          children: [],
         });
       } else if (typeof fileContentBefore[key] === 'object' && typeof fileContentAfter[key] === 'object') {
         acc.push({
           type: 'nested',
           key,
+          value: [],
           children: buildDifAST(fileContentBefore[key], fileContentAfter[key]),
         });
       } else {
         acc.push({
           type: 'changed',
           key,
-          oldValue: fileContentBefore[key],
-          newValue: fileContentAfter[key],
+          value: [fileContentBefore[key], fileContentAfter[key]],
+          children: [],
         });
       }
     }
@@ -79,14 +81,16 @@ const buildDifAST = (fileContentBefore, fileContentAfter) => {
       acc.push({
         type: 'added',
         key,
-        value: fileContentAfter[key],
+        value: [null, fileContentAfter[key]],
+        children: [],
       });
     }
     if (_.has(fileContentBefore, key) && !_.has(fileContentAfter, key)) {
       acc.push({
         type: 'deleted',
         key,
-        value: fileContentBefore[key],
+        value: [fileContentBefore[key], null],
+        children: [],
       });
     }
     return acc;
