@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import getDiff from './getDifference';
 
 const fileBefore = {
   common: {
@@ -97,8 +98,6 @@ const buildDifAST = (fileContentBefore, fileContentAfter) => {
   }, []);
 };
 const obj = buildDifAST(fileBefore, fileAfter);
-console.log(obj);
-console.log('\n\n');
-console.log(obj[0].children);
-console.log('\n\n');
-console.log(obj[1].children);
+console.log(getDiff(obj));
+// console.log('\n\n');
+console.log(getDiff(obj)[0].value);
