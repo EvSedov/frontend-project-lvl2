@@ -19,4 +19,5 @@ const getDifference = data => data.map((elem) => {
   }
   return undefined;
 });
+
 export default getDifference;

@@ -1,5 +1,5 @@
 run:
-	npx babel-node 'src/lib/buildDifAST.js' 10
+	npx babel-node 'src/lib/stringify.js' 10
 
 build:
 	rm -rf dist
