@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import _ from 'lodash';
 import parsers from '../lib/parsers';
+import buildDifAST from '../lib/buildDifAST';
+import getDifference from '../lib/getDifference';
+import stringify from '../lib/stringify';
 
 const getPathAbsolute = pathToFile => (path.isAbsolute(pathToFile)
   ? pathToFile : path.normalize(`${process.cwd()}/${pathToFile}`));
@@ -15,26 +17,11 @@ const gendiff = (filePathBefore, filePathAfter) => {
   const parsersAfter = parsers(filePathAfter);
   const fileContentBefore = parsersBefore(fs.readFileSync(filePathBeforeAbsolute, 'utf-8'));
   const fileContentAfter = parsersAfter(fs.readFileSync(filePathAfterAbsolute, 'utf-8'));
-  const keys = _.uniq([..._.keys(fileContentBefore), ..._.keys(fileContentAfter)]);
-  let result = '';
-  keys.forEach((key) => {
-    if (_.has(fileContentBefore, key) && _.has(fileContentAfter, key)) {
-      if (fileContentBefore[key] === fileContentAfter[key]) {
-        result = `${result}   ${key}: ${fileContentBefore[key]}\n`;
-      } else {
-        result = `${result} - ${key}: ${fileContentBefore[key]}\n + ${key}: ${fileContentAfter[key]}\n`;
-      }
-    }
-    if (!_.has(fileContentBefore, key) && _.has(fileContentAfter, key)) {
-      result = `${result} + ${key}: ${fileContentAfter[key]}\n`;
-    }
-    if (_.has(fileContentBefore, key) && !_.has(fileContentAfter, key)) {
-      result = `${result} - ${key}: ${fileContentBefore[key]}\n`;
-    }
-  });
+  const ast = buildDifAST(fileContentBefore, fileContentAfter);
+  const renderDif = getDifference(ast);
+  const result = stringify(renderDif);
   fs.closeSync(fdBefore);
   fs.closeSync(fdAfter);
-  console.log(`{\n${result}}`);
-  return `{\n${result}}`;
+  return result;
 };
 export default gendiff;
