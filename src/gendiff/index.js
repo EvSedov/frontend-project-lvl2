@@ -22,6 +22,7 @@ const gendiff = (filePathBefore, filePathAfter) => {
   const result = stringify(renderDif);
   fs.closeSync(fdBefore);
   fs.closeSync(fdAfter);
+  console.log(result);
   return result;
 };
 export default gendiff;
