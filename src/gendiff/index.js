@@ -3,7 +3,7 @@ import path from 'path';
 import parsers from '../lib/parsers';
 import buildDifAST from '../lib/buildDifAST';
 import getDifference from '../lib/getDifference';
-import stringify from '../lib/stringify';
+import { stringify } from '../formatters';
 
 const getPathAbsolute = pathToFile => (path.isAbsolute(pathToFile)
   ? pathToFile : path.normalize(`${process.cwd()}/${pathToFile}`));
