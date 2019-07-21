@@ -7,8 +7,9 @@ commander
   .arguments('<firstConfig> <secondConfig>')
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'Output format')
-  .action((firstConfig, secondConfig) => {
-    genDiff(firstConfig, secondConfig);
+  .action((firstConfig, secondConfig, options) => {
+    const mode = options.format || 'string';
+    genDiff(firstConfig, secondConfig, mode);
   });
 
 commander.parse(process.argv);
