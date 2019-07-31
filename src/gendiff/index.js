@@ -22,8 +22,7 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   const result = formatter(format)(renderDif);
   fs.closeSync(fdBefore);
   fs.closeSync(fdAfter);
-  console.log(result);
   return result;
 };
 // export default gendiff;
-gendiff('./__test__/__fixtures__/json/before.json', './__test__/__fixtures__/json/after.json', 'plain');
+console.log(gendiff('./__test__/__fixtures__/json/before.json', './__test__/__fixtures__/json/after.json', 'plain'));
