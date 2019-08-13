@@ -24,5 +24,4 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   fs.closeSync(fdAfter);
   return result;
 };
-// export default gendiff;
-console.log(gendiff('./__test__/__fixtures__/json/before.json', './__test__/__fixtures__/json/after.json', 'plain'));
+export default gendiff;
