@@ -2,8 +2,10 @@ import gendiff from '../src/gendiff';
 
 const pathToBeforeYaml = './__test__/__fixtures__/yml/before.yml';
 const pathToAfterYaml = './__test__/__fixtures__/yml/after.yml';
-const pathToBeforeIni = './__test__/__fixtures__/ini/before.ini';
-const pathToAfterIni = './__test__/__fixtures__/ini/after.ini';
+const pathToBeforeIni1 = './__test__/__fixtures__/ini/before1.ini';
+const pathToAfterIni1 = './__test__/__fixtures__/ini/after1.ini';
+const pathToBeforeIni2 = './__test__/__fixtures__/ini/before2.ini';
+const pathToAfterIni2 = './__test__/__fixtures__/ini/after2.ini';
 const pathToBeforeJson1 = './__test__/__fixtures__/json/before1.json';
 const pathToAfterJson1 = './__test__/__fixtures__/json/after1.json';
 const pathToBeforeJson2 = './__test__/__fixtures__/json/before2.json';
@@ -55,9 +57,10 @@ Property 'verbose' was added with value: true
 Property 'group2' was added with value: [complex value]
 `;
 
-test.each([[pathToBeforeYaml, pathToAfterYaml, result1], [pathToBeforeIni, pathToAfterIni, result1], [pathToBeforeJson1, pathToAfterJson1, result1]])('gendiff(%s, %s)', (pathBefore, pathAfter, expected) => {
-  expect(gendiff(pathBefore, pathAfter)).toBe(expected);
+test.each([[pathToBeforeYaml, pathToAfterYaml, result1], [pathToBeforeIni1, pathToAfterIni1, result1], [pathToBeforeJson1, pathToAfterJson1, result1]])('format stringify gendiff(%s, %s)', (pathBefore, pathAfter, expected) => {
+  expect(gendiff(pathBefore, pathAfter, 'stringify')).toBe(expected);
 });
-test('format plain', () => {
-  expect(gendiff(pathToBeforeJson2, pathToAfterJson2, 'plain')).toBe(result2);
+
+test.each([[pathToBeforeIni2, pathToAfterIni2, result2], [pathToBeforeJson2, pathToAfterJson2, result2]])('format plain gendiff(%s, %s)', (pathBefore, pathAfter, expected) => {
+  expect(gendiff(pathBefore, pathAfter, 'plain')).toBe(expected);
 });
