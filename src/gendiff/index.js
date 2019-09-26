@@ -5,8 +5,7 @@ import buildDifAST from '../lib/buildDifAST';
 import getDifference from '../lib/getDifference';
 import formatter from '../formatters';
 
-const getPathAbsolute = pathToFile => (path.isAbsolute(pathToFile)
-  ? pathToFile : path.normalize(`${process.cwd()}/${pathToFile}`));
+const getPathAbsolute = pathToFile => (path.isAbsolute(pathToFile) ? pathToFile : path.normalize(`${process.cwd()}/${pathToFile}`));
 
 const gendiff = (filePathBefore, filePathAfter, format) => {
   const filePathBeforeAbsolute = getPathAbsolute(filePathBefore);
@@ -22,6 +21,7 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   const result = formatter(format)(renderDif);
   fs.closeSync(fdBefore);
   fs.closeSync(fdAfter);
+  console.log(result);
   return result;
 };
 export default gendiff;
