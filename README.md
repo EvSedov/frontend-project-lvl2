@@ -20,3 +20,6 @@ asciinema https://asciinema.org/a/RUde1lMe1f03nIcVhu951yDx4
 
 Step 6.
 asciinema https://asciinema.org/a/l67192TNG013J2r4LlRLF3s1n
+
+Step 7.
+asciinema https://asciinema.org/a/GSkbRk76Dv1RJ2StXVSAMnTAS

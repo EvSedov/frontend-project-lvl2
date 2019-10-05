@@ -21,7 +21,11 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   const result = formatter(format)(renderDif);
   fs.closeSync(fdBefore);
   fs.closeSync(fdAfter);
-  console.log(result);
+  if (format === 'json') {
+    console.dir(result, { showHidden: false, depth: null, colors: true });
+  } else {
+    console.log(result);
+  }
   return result;
 };
 export default gendiff;
