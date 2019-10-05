@@ -1,5 +1,6 @@
 ### tool gendiff
 [![Build Status](https://travis-ci.com/EvSedov/frontend-project-lvl2.svg?branch=master)](https://travis-ci.com/EvSedov/frontend-project-lvl2)
+[![Maintainability](https://api.codeclimate.com/v1/badges/55c6d3330d86d32416ee/maintainability)](https://codeclimate.com/github/EvSedov/frontend-project-lvl2/maintainability)
 
 Compares two configuration files and shows a difference.
 
