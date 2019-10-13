@@ -1,4 +1,4 @@
-import gendiff from '../src/gendiff';
+import gendiff from '../src';
 import resultStringify from '../__fixtures__/results/resultStringify';
 import resultPlain from '../__fixtures__/results/resultPlain';
 
