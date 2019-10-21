@@ -1,0 +1,29 @@
+{
+- timeout: 50
++ timeout: 20
+- proxy: 123.234.53.22
+- group3: rem
+  common: {
+      setting3: true
+    - setting4: removed
+    - setting5: was
+      setting6: {
+          key: value
+        + ops: vops
+      }
+    + setting2: 200
+    + sites: hexlet.io
+  }
+  group1: {
+    - baz: bars
+    + baz: bas
+      foo: bar
+      nest: {
+          key: value
+      }
+  }
++ verbose: true
++ group2: {
+      abc: 12345
+  }
+}

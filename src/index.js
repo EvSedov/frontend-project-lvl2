@@ -29,3 +29,5 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   return result;
 };
 export default gendiff;
+
+// gendiff('__fixtures__/yml/before2.yml', '__fixtures__/yml/after2.yml', 'stringify');
