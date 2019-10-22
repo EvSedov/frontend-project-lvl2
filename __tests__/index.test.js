@@ -1,31 +1,28 @@
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import path from 'path';
 import gendiff from '../src';
 
-const pathToFileResultPlain = path.join(__dirname, '../__fixtures__/results/resultPlain.txt');
-const pathToFileResultStringify = path.join(__dirname, '../__fixtures__/results/resultStringify.txt');
-const resultPlain = fs.readFileSync(pathToFileResultPlain, 'utf-8');
-const resultStringify = fs.readFileSync(pathToFileResultStringify, 'utf-8');
+const formats = ['ini', 'json', 'yml'];
+const getFixturePath = name => path.join(__dirname, '..', '__fixtures__', name);
 
-const pathToFileBeforeYaml = '__fixtures__/yml/before.yml';
-const pathToFileAfterYaml = '__fixtures__/yml/after.yml';
-const pathToFileBeforeIni = '__fixtures__/ini/before.ini';
-const pathToFileAfterIni = '__fixtures__/ini/after.ini';
-const pathToFileBeforeJson = '__fixtures__/json/before.json';
-const pathToFileAfterJson = '__fixtures__/json/after.json';
+let expectedStringify;
+let expectedPlain;
 
-test.each([
-  [pathToFileBeforeYaml, pathToFileAfterYaml, resultStringify],
-  [pathToFileBeforeIni, pathToFileAfterIni, resultStringify],
-  [pathToFileBeforeJson, pathToFileAfterJson, resultStringify],
-])('format stringify gendiff(%s, %s)', (pathBefore, pathAfter, expected) => {
-  expect(gendiff(pathBefore, pathAfter, 'stringify')).toBe(expected);
+beforeAll(async () => {
+  expectedStringify = await fs.readFile(getFixturePath('resultStringify.txt'), 'utf-8');
+  expectedPlain = await fs.readFile(getFixturePath('resultPlain.txt'), 'utf-8');
 });
 
-test.each([
-  [pathToFileBeforeYaml, pathToFileAfterYaml, resultPlain],
-  [pathToFileBeforeIni, pathToFileAfterIni, resultPlain],
-  [pathToFileBeforeJson, pathToFileAfterJson, resultPlain],
-])('format plain gendiff(%s, %s)', (pathBefore, pathAfter, expected) => {
-  expect(gendiff(pathBefore, pathAfter, 'plain')).toBe(expected);
+test.each(formats)('format stringify gendiff for %s', async (format) => {
+  const fileBeforePath = getFixturePath(`before.${format}`);
+  const fileAfterPath = getFixturePath(`after.${format}`);
+  const actual = await gendiff(fileBeforePath, fileAfterPath, 'stringify');
+  expect(actual).toBe(expectedStringify);
+});
+
+test.each(formats)('format plain gendiff for %s', async (format) => {
+  const fileBeforePath = getFixturePath(`before.${format}`);
+  const fileAfterPath = getFixturePath(`after.${format}`);
+  const actual = await gendiff(fileBeforePath, fileAfterPath, 'plain');
+  expect(actual).toBe(expectedPlain);
 });
