@@ -2,7 +2,7 @@ import yaml from 'js-yaml';
 import path from 'path';
 import ini from 'ini';
 
-const parsers = (filePath) => {
+const getParser = (filePath) => {
   const fileExtension = path.extname(filePath);
   switch (fileExtension) {
     case '.yml':
@@ -13,4 +13,4 @@ const parsers = (filePath) => {
       return JSON.parse;
   }
 };
-export default parsers;
+export default getParser;
