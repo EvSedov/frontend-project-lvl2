@@ -3,7 +3,7 @@ import path from 'path';
 import getParser from './getParser';
 import buildDifAST from './buildDifAST';
 import getDifference from './getDifference';
-import formatter from './formatters';
+import getDataFormat from './formatters';
 
 const getPathAbsolute = pathToFile => (path.isAbsolute(pathToFile) ? pathToFile : path.normalize(`${process.cwd()}/${pathToFile}`));
 
@@ -16,8 +16,8 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   const fileContentAfter = parsersAfter(fs.readFileSync(filePathAfterAbsolute, 'utf-8'));
   const ast = buildDifAST(fileContentBefore, fileContentAfter);
   const renderDif = getDifference(ast);
-  const result = formatter(format)(renderDif); // функция должна быть глаголом
-  if (format === 'json') {
+  const result = getDataFormat(format)(renderDif);
+  if (format === 'stringify') {
     console.dir(result, { showHidden: false, depth: null, colors: true });
   } else {
     console.log(result);
