@@ -5,11 +5,9 @@ import buildDifAST from './buildDifAST';
 import getDifference from './getDifference';
 import getDataFormat from './formatters';
 
-const getPathAbsolute = pathToFile => (path.isAbsolute(pathToFile) ? pathToFile : path.normalize(`${process.cwd()}/${pathToFile}`));
-
 const gendiff = (filePathBefore, filePathAfter, format) => {
-  const filePathBeforeAbsolute = getPathAbsolute(filePathBefore);
-  const filePathAfterAbsolute = getPathAbsolute(filePathAfter);
+  const filePathBeforeAbsolute = path.resolve(filePathBefore);
+  const filePathAfterAbsolute = path.resolve(filePathAfter);
   const parsersBefore = getParser(filePathBefore);
   const parsersAfter = getParser(filePathAfter);
   const fileContentBefore = parsersBefore(fs.readFileSync(filePathBeforeAbsolute, 'utf-8'));
