@@ -13,7 +13,7 @@ beforeAll(async () => {
   expectedPlain = await fs.readFile(getFixturePath('plain/resultPlain.txt'), 'utf-8');
 });
 
-test.each(['json'])('format stringify gendiff for %s', async (format) => {
+test.each(['ini', 'json'])('format stringify gendiff for %s', async (format) => {
   const fileBeforePath = getFixturePath(`stringify/before.${format}`);
   const fileAfterPath = getFixturePath(`stringify/after.${format}`);
   const actual = await gendiff(fileBeforePath, fileAfterPath, 'stringify');
