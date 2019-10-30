@@ -14,8 +14,8 @@ beforeAll(async () => {
 });
 
 test.each(formats)('format stringify gendiff for %s', async (format) => {
-  const fileBeforePath = getFixturePath(`stringify/before.${format}`);
-  const fileAfterPath = getFixturePath(`stringify/after.${format}`);
+  const fileBeforePath = await getFixturePath(`stringify/before.${format}`);
+  const fileAfterPath = await getFixturePath(`stringify/after.${format}`);
   const actual = await gendiff(fileBeforePath, fileAfterPath, 'stringify');
   expect(actual).toBe(expectedStringify);
 });
