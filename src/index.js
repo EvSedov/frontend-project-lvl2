@@ -16,7 +16,7 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   const renderDif = getDifference(ast);
   const result = getDataFormat(format)(renderDif);
   if (format === 'stringify') {
-    console.dir(result, { showHidden: false, depth: null, colors: true });
+    console.log(result);
   } else {
     console.log(result);
   }
