@@ -15,11 +15,7 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   const ast = buildDifAST(fileContentBefore, fileContentAfter);
   const renderDif = getDifference(ast);
   const result = getDataFormat(format)(renderDif);
-  if (format === 'stringify') {
-    console.log(result);
-  } else {
-    console.log(result);
-  }
+  console.log(result);
   return result;
 };
 export default gendiff;
