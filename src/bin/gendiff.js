@@ -8,7 +8,8 @@ commander
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'Output format', 'plain')
   .action((firstConfig, secondConfig) => {
-    genDiff(firstConfig, secondConfig, commander.format);
+    const result = genDiff(firstConfig, secondConfig, commander.format);
+    console.log(result);
   });
 
 commander.parse(process.argv);
