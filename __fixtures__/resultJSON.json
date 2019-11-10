@@ -1,0 +1,5 @@
+[{"key": "common", "sign": "", "value": [{"key": "setting1", "sign": "", "value": "Value 1"}, {"key": "setting2", 
+  "sign": "-", "value": "200"}, [{"key": "setting3", "sign": "-", "value": true}, {"key": "setting3", "sign": "+", 
+    "value": {"key": "value"}}], {"key": "setting6", "sign": "", "value": [{"key": "key", "sign": "", 
+      "value": "value"}, {"key": "ops", "sign": "+", "value": "vops"}]}, {"key": "follow", "sign": "+", 
+        "value": false}, {"key": "setting4", "sign": "+", "value": "blah blah"}, {"key": "setting5", "sign": "+", "value": {"key5": "value5"}}]}, {"key": "group1", "sign": "", "value": [[{"key": "baz", "sign": "-", "value": "bas"}, {"key": "baz", "sign": "+", "value": "bars"}], {"key": "foo", "sign": "", "value": "bar"}, [{"key": "nest", "sign": "-", "value": {"key": "value"}}, {"key": "nest", "sign": "+", "value": "str"}]]}, {"key": "group2", "sign": "-", "value": {"abc": "12345"}}, {"key": "group3", "sign": "+", "value": {"fee": "100500"}}]
