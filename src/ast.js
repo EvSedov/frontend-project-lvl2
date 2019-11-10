@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const buildDifAST = (fileContentBefore, fileContentAfter) => {
+const buildAST = (fileContentBefore, fileContentAfter) => {
   const keysBefore = Object.keys(fileContentBefore);
   const keysAfter = Object.keys(fileContentAfter);
   const keys = _.uniq([...keysBefore, ...keysAfter]);
@@ -18,7 +18,7 @@ const buildDifAST = (fileContentBefore, fileContentAfter) => {
           type: 'nested',
           key,
           value: [],
-          children: buildDifAST(fileContentBefore[key], fileContentAfter[key]),
+          children: buildAST(fileContentBefore[key], fileContentAfter[key]),
         });
       } else {
         acc.push({
@@ -49,4 +49,4 @@ const buildDifAST = (fileContentBefore, fileContentAfter) => {
   }, []);
 };
 
-export default buildDifAST;
+export default buildAST;

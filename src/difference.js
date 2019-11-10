@@ -1,23 +1,29 @@
 const getDifference = data => data.map((elem) => {
   const { key } = elem;
   const value = (elem.type === 'nested') ? getDifference(elem.children) : elem.value;
+  let result;
   switch (elem.type) {
     case 'added':
-      return { sign: '+', key, value: value[1] };
+      result = { sign: '+', key, value: value[1] };
+      break;
     case 'deleted':
-      return { sign: '-', key, value: value[0] };
+      result = { sign: '-', key, value: value[0] };
+      break;
     case 'changed':
-      return [{ sign: '-', key, value: value[0] }, { sign: '+', key, value: value[1] }];
+      result = [{ sign: '-', key, value: value[0] }, { sign: '+', key, value: value[1] }];
+      break;
     case 'unchanged':
-      return { sign: '', key, value: value[0] };
+      result = { sign: '', key, value: value[0] };
+      break;
     case 'nested':
-      return { sign: '', key, value };
+      result = { sign: '', key, value };
+      break;
     default:
       console.log(elem.type);
       console.log('Unknown type.');
       break;
   }
-  return undefined;
+  return result;
 });
 
 export default getDifference;
