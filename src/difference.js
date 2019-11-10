@@ -4,16 +4,16 @@ const getDifference = data => data.map((elem) => {
   let result;
   switch (elem.type) {
     case 'added':
-      result = { sign: '+', key, value: value[1] };
+      result = { sign: '+', key, value };
       break;
     case 'deleted':
-      result = { sign: '-', key, value: value[0] };
+      result = { sign: '-', key, value };
       break;
     case 'changed':
       result = [{ sign: '-', key, value: value[0] }, { sign: '+', key, value: value[1] }];
       break;
     case 'unchanged':
-      result = { sign: '', key, value: value[0] };
+      result = { sign: '', key, value };
       break;
     case 'nested':
       result = { sign: '', key, value };
