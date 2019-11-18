@@ -9,11 +9,7 @@ commander
   .option('-f, --format [type]', 'Output format', 'plain')
   .action((firstConfig, secondConfig) => {
     const result = genDiff(firstConfig, secondConfig, commander.format);
-    if (commander.format === 'json') {
-      console.dir(result, { showHidden: true, depth: null, colors: true });
-    } else {
-      console.log(result);
-    }
+    console.dir(result, { showHidden: false, depth: null, colors: true });
   });
 
 commander.parse(process.argv);
