@@ -1,30 +1,32 @@
 import _ from 'lodash';
 
 const buildAST = (fileContentBefore, fileContentAfter) => {
-  const keysBefore = Object.keys(fileContentBefore);
-  const keysAfter = Object.keys(fileContentAfter);
-  const keys = _.uniq([...keysBefore, ...keysAfter]);
+  const before = fileContentBefore;
+  const after = fileContentAfter;
+  const keys = _.uniq([..._.keys(before), ..._.keys(after)]);
   return keys.map((key) => {
-    if (_.has(fileContentBefore, key) && _.has(fileContentAfter, key)) {
-      if (fileContentBefore[key] === fileContentAfter[key]) {
+    if (_.has(before, key) && _.has(after, key)) {
+      if (before[key] === after[key]) {
         return {
-          type: 'unchanged', sign: '', key, value: fileContentBefore[key],
+          type: 'unchanged', sign: '', key, value: before[key],
         };
       }
-      if (typeof fileContentBefore[key] === 'object' && typeof fileContentAfter[key] === 'object') {
+      if (typeof before[key] === 'object' && typeof after[key] === 'object') {
         return {
-          type: 'nested', sign: '-+', key, children: buildAST(fileContentBefore[key], fileContentAfter[key]),
+          type: 'nested', sign: '', key, children: buildAST(before[key], after[key]),
         };
       }
-      return { type: 'changed', key, value: [fileContentBefore[key], fileContentAfter[key]] };
-    }
-    if (!_.has(fileContentBefore, key) && _.has(fileContentAfter, key)) {
       return {
-        type: 'added', sign: '+', key, value: fileContentAfter[key],
+        type: 'changed', sign: ['-', '+'], key, value: [before[key], after[key]],
+      };
+    }
+    if (!_.has(before, key) && _.has(after, key)) {
+      return {
+        type: 'added', sign: '+', key, value: after[key],
       };
     }
     return {
-      type: 'deleted', sign: '-', key, value: fileContentBefore[key],
+      type: 'deleted', sign: '-', key, value: before[key],
     };
   });
 };
