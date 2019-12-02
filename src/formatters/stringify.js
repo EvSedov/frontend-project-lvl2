@@ -2,27 +2,25 @@ const stringify = (data, numberOfSpaces = 0) => {
   const currentNumberOfSpaces = numberOfSpaces;
   const spasesAtInBeginning = ' '.repeat(currentNumberOfSpaces + 8);
   const spasesAtEnd = ' '.repeat(currentNumberOfSpaces + 4);
-  const result = data.map((el) => {
-    if (el instanceof Array) {
-      const value0 = (el[0].value instanceof Object)
-        ? `{\n${spasesAtInBeginning}${Object.keys(el[0].value).join()}: ${Object.values(el[0].value).join()}\n${spasesAtEnd}}`
-        : el[0].value;
-      const value1 = (el[1].value instanceof Object)
-        ? `{\n${spasesAtInBeginning}${Object.keys(el[1].value).join()}: ${Object.values(el[1].value).join()}\n${spasesAtEnd}}`
-        : el[1].value;
-      return [`\n  ${' '.repeat(currentNumberOfSpaces)}${el[0].sign} ${el[0].key}: ${value0}`,
-        `\n  ${' '.repeat(currentNumberOfSpaces)}${el[1].sign} ${el[1].key}: ${value1}`];
+  const result = data.map((elem) => {
+    const { type, sign, key, value } = elem;
+    if (type === 'changed') {
+      const strValue0 = (value[0] instanceof Object)
+        ? `{\n${spasesAtInBeginning}${Object.keys(value[0]).join()}: ${Object.values(value[0]).join()}\n${spasesAtEnd}}`
+        : value[0];
+      const strValue1 = (value[1] instanceof Object)
+        ? `{\n${spasesAtInBeginning}${Object.keys(value[1]).join()}: ${Object.values(value[1]).join()}\n${spasesAtEnd}}`
+        : value[1];
+      return [`\n  ${' '.repeat(currentNumberOfSpaces)}${sign[0]} ${key}: ${strValue0}`,
+        `\n  ${' '.repeat(currentNumberOfSpaces)}${sign[1]} ${key}: ${strValue1}`];
     }
-    const value = (el.value instanceof Object)
-      ? `{\n${spasesAtInBeginning}${Object.keys(el.value).join()}: ${Object.values(el.value).join()}\n${spasesAtEnd}}`
-      : el.value;
-    if (el.value instanceof Array) {
-      return `\n  ${' '.repeat(currentNumberOfSpaces)}  ${el.key}: ${stringify(el.value, numberOfSpaces + 4)}`;
+    const strValue = (value instanceof Object)
+      ? `{\n${spasesAtInBeginning}${Object.keys(value).join()}: ${Object.values(value).join()}\n${spasesAtEnd}}`
+      : value;
+    if (type === 'nested') {
+      return `\n  ${' '.repeat(currentNumberOfSpaces)}  ${key}: ${stringify(elem.children, numberOfSpaces + 4)}`;
     }
-    if (el.sign) {
-      return `\n  ${' '.repeat(currentNumberOfSpaces)}${el.sign} ${el.key}: ${value}`;
-    }
-    return `\n  ${' '.repeat(currentNumberOfSpaces)}  ${el.key}: ${value}`;
+    return `\n  ${' '.repeat(currentNumberOfSpaces)}${sign} ${key}: ${strValue}`;
   });
   const resultStr = `{${result}\n${' '.repeat(currentNumberOfSpaces)}}`;
   return resultStr.replace(/,/g, '');

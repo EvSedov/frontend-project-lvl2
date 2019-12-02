@@ -8,12 +8,12 @@ const buildAST = (fileContentBefore, fileContentAfter) => {
     if (_.has(before, key) && _.has(after, key)) {
       if (before[key] === after[key]) {
         return {
-          type: 'unchanged', sign: '', key, value: before[key],
+          type: 'unchanged', sign: ' ', key, value: before[key],
         };
       }
       if (typeof before[key] === 'object' && typeof after[key] === 'object') {
         return {
-          type: 'nested', sign: '', key, children: buildAST(before[key], after[key]),
+          type: 'nested', sign: ' ', key, children: buildAST(before[key], after[key]),
         };
       }
       return {

@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import getParser from './parser';
 import buildAST from './ast';
-import getDifference from './difference';
 import getDataFormat from './formatters';
 
 const gendiff = (filePathBefore, filePathAfter, format) => {
@@ -15,8 +14,7 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   const fileContentBefore = parseBefore(fs.readFileSync(filePathBeforeAbsolute, 'utf-8'));
   const fileContentAfter = parseAfter(fs.readFileSync(filePathAfterAbsolute, 'utf-8'));
   const ast = buildAST(fileContentBefore, fileContentAfter);
-  const renderDiff = getDifference(ast);
-  const result = getDataFormat(format)(renderDiff);
+  const result = getDataFormat(format)(ast);
   return result;
 };
 export default gendiff;
