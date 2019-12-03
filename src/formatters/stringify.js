@@ -3,7 +3,9 @@ const stringify = (data, numberOfSpaces = 0) => {
   const spasesAtInBeginning = ' '.repeat(currentNumberOfSpaces + 8);
   const spasesAtEnd = ' '.repeat(currentNumberOfSpaces + 4);
   const result = data.map((elem) => {
-    const { type, sign, key, value } = elem;
+    const {
+      type, sign, key, value,
+    } = elem;
     if (type === 'changed') {
       const strValue0 = (value[0] instanceof Object)
         ? `{\n${spasesAtInBeginning}${Object.keys(value[0]).join()}: ${Object.values(value[0]).join()}\n${spasesAtEnd}}`

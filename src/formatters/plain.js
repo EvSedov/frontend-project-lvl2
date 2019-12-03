@@ -1,34 +1,36 @@
 // eslint-disable-next-line import/prefer-default-export
+const getValue = value => ((value instanceof Object) ? '[complex value]' : value);
+
 const plain = (data, keys = []) => {
-  const result = data.reduce((acc, el) => {
+  const result = data.map((elem) => {
+    const { type, sign, key } = elem;
     let newStr;
     let pathFromKeys;
-    if (el instanceof Array) {
-      const value0 = (el[0].value instanceof Object) ? '[complex value]' : el[0].value;
-      const value1 = (el[1].value instanceof Object) ? '[complex value]' : el[1].value;
-      keys.push(el[0].key);
+    if (type === 'changed') {
+      const value0 = getValue(elem.value[0]);
+      const value1 = getValue(elem.value[1]);
+      keys.push(key);
       pathFromKeys = keys.join('.');
       keys.pop();
       newStr = `Property '${pathFromKeys}' was updated. From ${value0} to ${value1}\n`;
     } else {
-      const value = (el.value instanceof Object) ? '[complex value]' : el.value;
-      keys.push(el.key);
+      const value = getValue(elem.value);
+      keys.push(key);
       pathFromKeys = keys.join('.');
       keys.pop();
-      if (el.value instanceof Array) {
-        newStr = `${plain(el.value, [...keys, el.key])}`;
-      } else if (el.sign === '+') {
+      if (elem.children) {
+        newStr = `${plain(elem.children, [...keys, key])}`;
+      } else if (sign === '+') {
         newStr = `Property '${pathFromKeys}' was added with value: ${value}\n`;
-      } else if (el.sign === '-') {
+      } else if (sign === '-') {
         newStr = `Property '${pathFromKeys}' was removed\n`;
       } else {
         newStr = '';
       }
     }
-    return [...acc, newStr];
-  }, []);
+    return newStr;
+  });
   const resultStr = `${result}`;
   return resultStr.replace(/,/g, '');
 };
-
 export default plain;
