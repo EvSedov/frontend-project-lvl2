@@ -8,25 +8,25 @@ const buildAST = (fileContentBefore, fileContentAfter) => {
     if (_.has(before, key) && _.has(after, key)) {
       if (before[key] === after[key]) {
         return {
-          type: 'unchanged', sign: ' ', key, value: before[key],
+          type: 'unchanged', key, value: before[key],
         };
       }
       if (typeof before[key] === 'object' && typeof after[key] === 'object') {
         return {
-          type: 'nested', sign: ' ', key, children: buildAST(before[key], after[key]),
+          type: 'nested', key, children: buildAST(before[key], after[key]),
         };
       }
       return {
-        type: 'changed', sign: ['-', '+'], key, value: [before[key], after[key]],
+        type: 'changed', key, value: [before[key], after[key]],
       };
     }
     if (!_.has(before, key) && _.has(after, key)) {
       return {
-        type: 'added', sign: '+', key, value: after[key],
+        type: 'added', key, value: after[key],
       };
     }
     return {
-      type: 'deleted', sign: '-', key, value: before[key],
+      type: 'deleted', key, value: before[key],
     };
   });
 };
