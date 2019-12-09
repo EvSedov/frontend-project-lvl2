@@ -3,7 +3,7 @@ const getValue = value => ((value instanceof Object) ? '[complex value]' : value
 
 const plain = (data, keys = []) => {
   const result = data.map((elem) => {
-    const { type, sign, key } = elem;
+    const { type, key } = elem;
     let newStr;
     let pathFromKeys;
     if (type === 'changed') {
@@ -20,9 +20,9 @@ const plain = (data, keys = []) => {
       keys.pop();
       if (elem.children) {
         newStr = `${plain(elem.children, [...keys, key])}`;
-      } else if (sign === '+') {
+      } else if (type === 'added') {
         newStr = `Property '${pathFromKeys}' was added with value: ${value}\n`;
-      } else if (sign === '-') {
+      } else if (type === 'deleted') {
         newStr = `Property '${pathFromKeys}' was removed\n`;
       } else {
         newStr = '';
