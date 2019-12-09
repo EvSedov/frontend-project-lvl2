@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import getParser from './parser';
 import buildAST from './ast';
-import serializeData from './formatters';
+import getFormatter from './formatters';
 
 const gendiff = (filePathBefore, filePathAfter, format) => {
   const filePathBeforeAbsolute = path.resolve(filePathBefore);
@@ -14,7 +14,7 @@ const gendiff = (filePathBefore, filePathAfter, format) => {
   const fileContentBefore = parseBefore(fs.readFileSync(filePathBeforeAbsolute, 'utf-8'));
   const fileContentAfter = parseAfter(fs.readFileSync(filePathAfterAbsolute, 'utf-8'));
   const ast = buildAST(fileContentBefore, fileContentAfter);
-  const result = serializeData(format)(ast);
+  const result = getFormatter(format)(ast);
   return result;
 };
 export default gendiff;

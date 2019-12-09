@@ -3,7 +3,7 @@ import _ from 'lodash';
 const buildAST = (fileContentBefore, fileContentAfter) => {
   const before = fileContentBefore;
   const after = fileContentAfter;
-  const keys = _.uniq([..._.keys(before), ..._.keys(after)]);
+  const keys = _.union(_.keys(before), _.keys(after));
   return keys.map((key) => {
     if (_.has(before, key) && _.has(after, key)) {
       if (before[key] === after[key]) {
