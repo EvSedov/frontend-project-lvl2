@@ -8,13 +8,11 @@ const getFixturePath = name => path.join(__dirname, '..', '__fixtures__', name);
 let expectedStringify;
 let expectedPlain;
 let expectedJSON;
-let resultJSON;
 
 beforeAll(async () => {
   expectedStringify = await fs.readFile(getFixturePath('resultStringify.txt'), 'utf-8');
   expectedPlain = await fs.readFile(getFixturePath('resultPlain.txt'), 'utf-8');
-  resultJSON = await fs.readFile(getFixturePath('resultJSON.json'), 'utf-8');
-  expectedJSON = await JSON.parse(resultJSON);
+  expectedJSON = await fs.readFile(getFixturePath('resultJSON.txt'), 'utf-8');
 });
 
 test.each(formats)('format stringify gendiff for %s', async (format) => {
