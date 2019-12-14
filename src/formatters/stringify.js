@@ -1,5 +1,8 @@
 import _ from 'lodash';
 
+const TWO = 2;
+const SIX = 6;
+
 const signs = {
   added: '+',
   deleted: '-',
@@ -19,16 +22,16 @@ const collectorStrings = {
     `\n${' '.repeat(args[0])}${args[1][1]} ${args[2]}: ${args[3][1]}`,
   ],
   nested: args => (
-    `\n${' '.repeat(args[0])}${args[1]} ${args[2]}: ${args[3](args[4], args[0] + 2)}`
+    `\n${' '.repeat(args[0])}${args[1]} ${args[2]}: ${args[3](args[4], args[0] + TWO)}`
   ),
 };
 const getString = args => `\n${' '.repeat(args[0])}${args[1]} ${args[2]}: ${args[3]}`;
 const getCollectorString = (object, type) => (object[type] ? object[type] : getString);
 
 const stringify = (data, numberOfSpaces = 0) => {
-  const currentNumberOfSpaces = numberOfSpaces + 2;
-  const spacesAtInBeginning = currentNumberOfSpaces + 6;
-  const spacesAtEnd = currentNumberOfSpaces + 2;
+  const currentNumberOfSpaces = numberOfSpaces + TWO;
+  const spacesAtInBeginning = currentNumberOfSpaces + SIX;
+  const spacesAtEnd = currentNumberOfSpaces + TWO;
   const result = data.map((elem) => {
     const {
       type, key, value,
@@ -45,7 +48,7 @@ const stringify = (data, numberOfSpaces = 0) => {
       : [currentNumberOfSpaces, sign, key, strValue];
     return getCollectorString(collectorStrings, type)(args);
   });
-  const resultStr = `{${result}\n${' '.repeat(currentNumberOfSpaces - 2)}}`;
+  const resultStr = `{${result}\n${' '.repeat(currentNumberOfSpaces - TWO)}}`;
   return resultStr.replace(/,/g, '');
 };
 
