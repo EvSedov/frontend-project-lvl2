@@ -16,7 +16,7 @@ const getValue = (tabBegin, tabEnd, value) => (
     : value
 );
 
-const collectorStrings = {
+const collectionOfStrings = {
   changed: args => [
     `\n${' '.repeat(args[0])}${args[1][0]} ${args[2]}: ${args[3][0]}`,
     `\n${' '.repeat(args[0])}${args[1][1]} ${args[2]}: ${args[3][1]}`,
@@ -26,7 +26,7 @@ const collectorStrings = {
   ),
 };
 const getString = args => `\n${' '.repeat(args[0])}${args[1]} ${args[2]}: ${args[3]}`;
-const getCollectorString = (object, type) => (object[type] ? object[type] : getString);
+const getCollectionOfString = (object, type) => (object[type] ? object[type] : getString);
 
 const stringify = (data, numberOfSpaces = 0) => {
   const currentNumberOfSpaces = numberOfSpaces + TWO;
@@ -46,7 +46,7 @@ const stringify = (data, numberOfSpaces = 0) => {
     const args = (type === 'nested')
       ? [currentNumberOfSpaces, sign, key, stringify, elem.children]
       : [currentNumberOfSpaces, sign, key, strValue];
-    return getCollectorString(collectorStrings, type)(args);
+    return getCollectionOfString(collectionOfStrings, type)(args);
   });
   const resultStr = `{${result}\n${' '.repeat(currentNumberOfSpaces - TWO)}}`;
   return resultStr.replace(/,/g, '');

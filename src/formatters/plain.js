@@ -1,34 +1,30 @@
-// eslint-disable-next-line import/prefer-default-export
-const getValue = value => ((value instanceof Object) ? '[complex value]' : value);
+const getComplexValue = value => ((value instanceof Object) ? '[complex value]' : value);
+const getValue = value => (value instanceof Array
+  ? [getComplexValue(value[0]), getComplexValue(value[1])] : getComplexValue(value));
 
-const plain = (data, keys = []) => {
+const getKey = (composKey, currentKey) => (
+  composKey === '' ? `${composKey}${currentKey}` : `${composKey}.${currentKey}`
+);
+
+const collectionOfStrings = {
+  unchanged: () => '',
+  changed: args => `Property '${args[0]}' was updated. From ${args[1][0]} to ${args[1][1]}\n`,
+  added: args => `Property '${args[0]}' was added with value: ${args[1]}\n`,
+  deleted: args => `Property '${args[0]}' was removed\n`,
+  nested: args => `${args[0](args[1], args[2])}`,
+};
+const getString = (object, type) => object[type];
+
+const plain = (data, accKeys = '') => {
   const result = data.map((elem) => {
-    const { type, key } = elem;
-    let newStr;
-    let pathFromKeys;
-    if (type === 'changed') {
-      const value0 = getValue(elem.value[0]);
-      const value1 = getValue(elem.value[1]);
-      keys.push(key);
-      pathFromKeys = keys.join('.');
-      keys.pop();
-      newStr = `Property '${pathFromKeys}' was updated. From ${value0} to ${value1}\n`;
-    } else {
-      const value = getValue(elem.value);
-      keys.push(key);
-      pathFromKeys = keys.join('.');
-      keys.pop();
-      if (elem.children) {
-        newStr = `${plain(elem.children, [...keys, key])}`;
-      } else if (type === 'added') {
-        newStr = `Property '${pathFromKeys}' was added with value: ${value}\n`;
-      } else if (type === 'deleted') {
-        newStr = `Property '${pathFromKeys}' was removed\n`;
-      } else {
-        newStr = '';
-      }
-    }
-    return newStr;
+    const currentKey = accKeys;
+    const { type, key, value } = elem;
+    const strValue = getValue(value);
+    const compositeKey = getKey(currentKey, key);
+    const args = (type === 'nested')
+      ? [plain, elem.children, compositeKey]
+      : [compositeKey, strValue];
+    return getString(collectionOfStrings, type)(args);
   });
   const resultStr = `${result}`;
   return resultStr.replace(/,/g, '');
