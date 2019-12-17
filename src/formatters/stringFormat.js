@@ -3,30 +3,35 @@ import _ from 'lodash';
 const TWO = 2;
 const SIX = 6;
 
-const signs = {
+const setOfSigns = {
   added: '+',
   deleted: '-',
   changed: ['-', '+'],
 };
 const getSign = (object, type) => (object[type] ? object[type] : ' ');
 
-const getValue = (tabBegin, tabEnd, value) => (
-  (_.isObject(value))
-    ? `{\n${' '.repeat(tabBegin)}${Object.keys(value).join()}: ${Object.values(value).join()}\n${' '.repeat(tabEnd)}}`
-    : value
-);
+const getValue = (numberOfSpacesBegin, numberOfSpacesEnd, value) => {
+  if (!_.isObject(value)) {
+    return value;
+  }
+  const tabBegin = ' '.repeat(numberOfSpacesBegin);
+  const tabEnd = ' '.repeat(numberOfSpacesEnd);
+  const currentKey = Object.keys(value).join();
+  const currentValue = Object.values(value).join();
+  return `{\n${tabBegin}${currentKey}: ${currentValue}\n${tabEnd}}`;
+};
 
 const collectionOfStrings = {
-  changed: args => [
-    `\n${' '.repeat(args[0])}${args[1][0]} ${args[2]}: ${args[3][0]}`,
-    `\n${' '.repeat(args[0])}${args[1][1]} ${args[2]}: ${args[3][1]}`,
+  changed: (numberOfSpaces, signs, key, values) => [
+    `\n${' '.repeat(numberOfSpaces)}${signs[0]} ${key}: ${values[0]}`,
+    `\n${' '.repeat(numberOfSpaces)}${signs[1]} ${key}: ${values[1]}`,
   ],
-  nested: args => (
-    `\n${' '.repeat(args[0])}${args[1]} ${args[2]}: ${args[3](args[4], args[0] + TWO)}`
+  nested: (numberOfSpaces, sign, key, fn, children) => (
+    `\n${' '.repeat(numberOfSpaces)}${sign} ${key}: ${fn(children, numberOfSpaces + TWO)}`
   ),
 };
-const getString = args => `\n${' '.repeat(args[0])}${args[1]} ${args[2]}: ${args[3]}`;
-const getCollectionOfString = (object, type) => (object[type] ? object[type] : getString);
+const getString = (numberOfSpaces, sign, key, value) => `\n${' '.repeat(numberOfSpaces)}${sign} ${key}: ${value}`;
+const getStringFromCollection = (object, type) => (object[type] ? object[type] : getString);
 
 const stringify = (data, numberOfSpaces = 0) => {
   const currentNumberOfSpaces = numberOfSpaces + TWO;
@@ -36,17 +41,17 @@ const stringify = (data, numberOfSpaces = 0) => {
     const {
       type, key, value,
     } = elem;
-    const sign = getSign(signs, type);
+    const sign = getSign(setOfSigns, type);
     const strValue = (type === 'changed')
       ? [
         getValue(spacesAtInBeginning, spacesAtEnd, value[0]),
         getValue(spacesAtInBeginning, spacesAtEnd, value[1]),
       ]
       : getValue(spacesAtInBeginning, spacesAtEnd, value);
-    const args = (type === 'nested')
+    const setOfArgs = (type === 'nested')
       ? [currentNumberOfSpaces, sign, key, stringify, elem.children]
       : [currentNumberOfSpaces, sign, key, strValue];
-    return getCollectionOfString(collectionOfStrings, type)(args);
+    return getStringFromCollection(collectionOfStrings, type)(...setOfArgs);
   });
   const resultStr = `{${result}\n${' '.repeat(currentNumberOfSpaces - TWO)}}`;
   return resultStr.replace(/,/g, '');
