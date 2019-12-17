@@ -1,7 +1,7 @@
 ### tool gendiff
 [![Build Status](https://travis-ci.com/EvSedov/frontend-project-lvl2.svg?branch=master)](https://travis-ci.com/EvSedov/frontend-project-lvl2)
 [![Maintainability](https://api.codeclimate.com/v1/badges/55c6d3330d86d32416ee/maintainability)](https://codeclimate.com/github/EvSedov/frontend-project-lvl2/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7a57c8122db93d53d2cf/test_coverage)](https://codeclimate.com/github/EvSedov/frontend-project-lvl2/test_coverage)
 
 Compares two configuration files and shows a difference.
 
