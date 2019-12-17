@@ -1,6 +1,6 @@
-import stringify from './stringify';
-import plain from './plain';
+import stringify from './stringFormat';
+import plain from './plainFormat';
 
-const formates = { plain, stringify, json: JSON.stringify };
+const formats = { plain, stringify, json: JSON.stringify };
 
-export default arg => formates[arg];
+export default formatName => formats[formatName];
