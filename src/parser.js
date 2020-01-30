@@ -7,4 +7,4 @@ const parsers = {
   yml: yaml.safeLoad,
 };
 
-export default typeFormate => parsers[typeFormate];
+export default (typeFormate) => parsers[typeFormate];

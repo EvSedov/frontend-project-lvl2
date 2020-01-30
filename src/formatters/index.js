@@ -3,4 +3,4 @@ import plain from './plainFormat';
 
 const formats = { plain, stringify, json: JSON.stringify };
 
-export default formatName => formats[formatName];
+export default (formatName) => formats[formatName];

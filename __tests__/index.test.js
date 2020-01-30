@@ -3,7 +3,7 @@ import path from 'path';
 import gendiff from '../src';
 
 const formats = ['ini', 'json', 'yml'];
-const getFixturePath = name => path.join(__dirname, '..', '__fixtures__', name);
+const getFixturePath = (name) => path.join(__dirname, '..', '__fixtures__', name);
 
 let expectedStringify;
 let expectedPlain;
