@@ -10,11 +10,11 @@ const getSign = (object, type) => (object[type] ? object[type] : ' ');
 const getSpace = num => ' '.repeat(num * 4);
 
 const getValue = (value, depth) => {
-  if (_.isObject(value)) {
-    const currentValue = JSON.stringify(value, null, 6).replace(/"/g, '');
-    return `{\n${getSpace(depth)}${currentValue.split('\n')[1]}\n${getSpace(depth)}  }`;
+  if (!_.isObject(value)) {
+    return value;
   }
-  return value;
+  const currentValue = JSON.stringify(value, null, 6).replace(/"/g, '');
+  return `{\n${getSpace(depth)}${currentValue.split('\n')[1]}\n${getSpace(depth)}  }`;
 };
 
 const parseForType = {
