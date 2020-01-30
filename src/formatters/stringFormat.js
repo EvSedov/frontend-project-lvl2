@@ -7,7 +7,7 @@ const setOfSigns = {
 };
 const getSign = (object, type) => (object[type] ? object[type] : ' ');
 
-const getSpace = num => ' '.repeat(num * 4);
+const getSpace = (num) => ' '.repeat(num * 4);
 
 const getValue = (value, depth) => {
   if (!_.isObject(value)) {
@@ -25,7 +25,7 @@ const parseForType = {
 
   nested: (sign, key, value, depth) => (
     // eslint-disable-next-line no-use-before-define
-    `\n${getSpace(depth)}${sign} ${key}: {${value.map(el => stringify(el, depth + 1))}
+    `\n${getSpace(depth)}${sign} ${key}: {${value.map((el) => stringify(el, depth + 1))}
   ${getSpace((depth))}}`
   ),
 };
@@ -43,4 +43,4 @@ const stringify = (element, depth = 1) => {
   return getFuncForBuildString(parseForType, type)(sign, key, currentValue, depth);
 };
 
-export default data => `{${data.map(el => stringify(el, 1))}\n}`.split(',').join('');
+export default (data) => `{${data.map((el) => stringify(el, 1))}\n}`.split(',').join('');
