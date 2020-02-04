@@ -35,9 +35,9 @@ const stringify = (element, depth) => {
 };
 
 const passStrings = (data, depth = 1) => {
-  const innerText = (depth === 1)
+  const result = (depth === 1)
     ? `{\n${data.map((el) => stringify(el, depth)).join('\n')}\n}`
     : `${data.map((el) => stringify(el, depth)).join('\n')}`;
-  return innerText;
+  return result;
 };
 export default passStrings;
