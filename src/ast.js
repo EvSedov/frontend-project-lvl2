@@ -17,7 +17,7 @@ const buildAST = (fileContentBefore, fileContentAfter) => {
         };
       }
       return {
-        type: 'changed', key, value: [before[key], after[key]],
+        type: 'changed', key, oldValue: before[key], newValue: after[key],
       };
     }
     if (!_.has(before, key) && _.has(after, key)) {
