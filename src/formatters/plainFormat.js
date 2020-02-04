@@ -2,7 +2,7 @@
 const getComplexValue = (value) => ((value instanceof Object) ? '[complex value]' : value);
 
 const getKey = (composKey, currentKey) => (
-  composKey === '' ? `${composKey}${currentKey}` : `${composKey}.${currentKey}`
+  composKey === '' ? `${currentKey}` : `${composKey}.${currentKey}`
 );
 
 const collectionOfStrings = {
