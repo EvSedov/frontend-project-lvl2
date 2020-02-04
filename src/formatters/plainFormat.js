@@ -1,7 +1,5 @@
 /* eslint-disable no-use-before-define */
 const getComplexValue = (value) => ((value instanceof Object) ? '[complex value]' : value);
-const getValue = (value) => (value instanceof Array
-  ? [getComplexValue(value[0]), getComplexValue(value[1])] : getComplexValue(value));
 
 const getKey = (composKey, currentKey) => (
   composKey === '' ? `${composKey}${currentKey}` : `${composKey}.${currentKey}`
@@ -9,8 +7,8 @@ const getKey = (composKey, currentKey) => (
 
 const collectionOfStrings = {
   unchanged: () => '',
-  changed: (key, { oldValue, newValue }) => `Property '${key}' was updated. From ${getValue(oldValue)} to ${getValue(newValue)}`,
-  added: (key, { value }) => `Property '${key}' was added with value: ${getValue(value)}`,
+  changed: (key, { oldValue, newValue }) => `Property '${key}' was updated. From ${getComplexValue(oldValue)} to ${getComplexValue(newValue)}`,
+  added: (key, { value }) => `Property '${key}' was added with value: ${getComplexValue(value)}`,
   deleted: (key) => `Property '${key}' was removed`,
   nested: (key, { children }) => passStrings(children, key),
 };
