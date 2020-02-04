@@ -11,23 +11,22 @@ const getValue = (value, depth) => {
 };
 
 const parseForType = {
-  added: ({ key, value }, depth) => `\n${getSpace(depth)}+ ${key}: ${getValue(value, depth)}`,
+  added: ({ key, value }, depth) => `${getSpace(depth)}+ ${key}: ${getValue(value, depth)}`,
 
   changed: ({ key, value }, depth) => [
-    `\n${getSpace(depth)}- ${key}: ${getValue(value[0], depth)}`,
-    `\n${getSpace(depth)}+ ${key}: ${getValue(value[1], depth)}`,
-  ].join(''),
+    `${getSpace(depth)}- ${key}: ${getValue(value[0], depth)}`,
+    `${getSpace(depth)}+ ${key}: ${getValue(value[1], depth)}`,
+  ].join('\n'),
 
-  deleted: ({ key, value }, depth) => `\n${getSpace(depth)}- ${key}: ${getValue(value, depth)}`,
+  deleted: ({ key, value }, depth) => `${getSpace(depth)}- ${key}: ${getValue(value, depth)}`,
 
   nested: ({ key, children }, depth) => {
     // eslint-disable-next-line no-use-before-define
     const innerText = children.map((el) => stringify(el, depth + 1));
-    return `\n${getSpace(depth)}  ${key}: {${innerText}
-  ${getSpace(depth)}}`;
+    return `${getSpace(depth)}  ${key}: {\n${innerText}\n  ${getSpace(depth)}}`;
   },
 
-  unchanged: ({ key, value }, depth) => `\n${getSpace(depth)}  ${key}: ${getValue(value, depth)}`,
+  unchanged: ({ key, value }, depth) => `${getSpace(depth)}  ${key}: ${getValue(value, depth)}`,
 };
 
 const stringify = (element, depth = 1) => {
@@ -35,4 +34,4 @@ const stringify = (element, depth = 1) => {
   return parseForType[type](element, depth);
 };
 
-export default (data) => `{${data.map((el) => stringify(el, 1))}\n}`.split(',').join('');
+export default (data) => `{\n${data.map((el) => stringify(el, 1))}\n}`.split(',').join('\n');
