@@ -1,5 +1,5 @@
-import stringify from './stringFormat';
-import plain from './plainFormat';
+import stringify from './stylish';
+import plain from './plain';
 
 const formats = { plain, stringify, json: JSON.stringify };
 

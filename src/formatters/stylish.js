@@ -22,7 +22,7 @@ const parseForType = {
 
   nested: ({ key, children }, depth) => {
     // eslint-disable-next-line no-use-before-define
-    const innerText = passStrings(children, depth + 1);
+    const innerText = passString(children, depth + 1);
     return `${getSpace(depth)}  ${key}: {\n${innerText}\n  ${getSpace(depth)}}`;
   },
 
@@ -34,10 +34,7 @@ const stringify = (element, depth) => {
   return parseForType[type](element, depth);
 };
 
-const passStrings = (data, depth = 1) => {
-  const result = (depth === 1)
-    ? `{\n${data.map((el) => stringify(el, depth)).join('\n')}\n}`
-    : `${data.map((el) => stringify(el, depth)).join('\n')}`;
-  return result;
-};
-export default passStrings;
+const passString = (data, depth) => data.map((el) => stringify(el, depth)).join('\n');
+
+const stylish = (data) => `{\n${passString(data, 1)}\n}`;
+export default stylish;
